@@ -17,8 +17,8 @@ export default function Header() {
   const jerseyNumber = 'LP21';
 
   const measurables = isFootball
-    ? ['4.42s 40-YD', '38" VERT', '4.0 GPA']
-    : ['18.5 PPG', '41% 3PT', '4.0 GPA'];
+    ? ['4.42s 40-YD', '38" VERT', '3.2 GPA']
+    : ['4.2 PPG', '1.8 APG', '3.2 GPA'];
 
   const copyLink = (sport: 'football' | 'basketball') => {
     const origin =

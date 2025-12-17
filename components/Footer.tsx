@@ -42,9 +42,12 @@ export default function Footer() {
               Elgin High School<br />
               Elgin, Illinois
             </p>
-            <p className="text-slate-400 text-sm">
+            <p className="text-slate-400 text-sm mb-2">
               Class of 2028
             </p>
+            <a href="mailto:lamarinpowell23@gmail.com" className="text-slate-400 text-sm hover:text-white transition">
+              lamarinpowell23@gmail.com
+            </a>
           </div>
         </div>
 

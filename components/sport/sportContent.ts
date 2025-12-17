@@ -217,10 +217,10 @@ export const sportContent: Record<Sport, SportContent> = {
     description:
       "Dynamic shooting guard with exceptional court vision and a deadly three-point shot. Known for clutch performances and defensive tenacity.",
     stats: [
-      { label: "Points Per Game", value: "18.5" },
-      { label: "3-Point %", value: "41.2%" },
-      { label: "Assists", value: "4.8" },
-      { label: "Steals", value: "2.3" },
+      { label: "Points Per Game", value: "4.2" },
+      { label: "Assists Per Game", value: "1.8" },
+      { label: "Rebounds Per Game", value: "2.1" },
+      { label: "Steals Per Game", value: "1.5" },
     ],
     colors: {
       primary: "#FF6B35",
