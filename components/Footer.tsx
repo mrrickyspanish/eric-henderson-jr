@@ -6,7 +6,7 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold text-lg mb-3">LaMarin Powell</h3>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Class of 2028 dual-sport athlete from Elgin High School. Running Back and Guard committed to excellence on and off the field.
+              Class of 2028 dual-sport athlete. Running Back and Guard committed to excellence on and off the field.
             </p>
           </div>
 
@@ -39,14 +39,14 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold text-lg mb-3">Contact</h3>
             <p className="text-slate-400 text-sm mb-2">
-              Elgin High School<br />
+              Marcia Riley-Harris<br />
               Elgin, Illinois
             </p>
             <p className="text-slate-400 text-sm mb-2">
               Class of 2028
             </p>
-            <a href="mailto:lamarinpowell23@gmail.com" className="text-slate-400 text-sm hover:text-white transition">
-              lamarinpowell23@gmail.com
+            <a href="mailto:Jmelprh22@gmail.com" className="text-slate-400 text-sm hover:text-white transition">
+              Jmelprh22@gmail.com
             </a>
           </div>
         </div>

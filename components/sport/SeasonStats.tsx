@@ -45,7 +45,7 @@ export default function SeasonStats() {
               <div className="mb-6">
                 <p className="text-amber-400/80 text-xs uppercase tracking-[0.2em] font-bold mb-2">2025 Season</p>
                 <h3 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-1">Final Statistics</h3>
-                <p className="text-slate-400 text-sm">Running Back • Elgin High School</p>
+                <p className="text-slate-400 text-sm">Running Back • Class of 2028</p>
                 <p className="text-slate-500 text-xs mt-1">Sophomore Season • 10 Games Played</p>
               </div>
 

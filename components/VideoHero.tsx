@@ -125,7 +125,7 @@ export default function PhotoHero() {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="text-base md:text-lg font-medium text-slate-100/80"
           >
-            Dual-Sport Athlete • Elgin High School
+            Dual-Sport Athlete • Class of 2028
           </motion.p>
         </div>
 
