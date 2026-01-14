@@ -78,14 +78,14 @@ export default function Footer() {
 
           <div className="mt-4 flex justify-center">
             <a 
-              href="https://creativeeyemultimedia.com/"
+              href="https://creativeeyestudios.com"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-slate-800 hover:text-slate-400 transition-all duration-500 group"
             >
               <span className="text-[10px] opacity-40 group-hover:opacity-100 transition-opacity duration-500">Meticulously crafted by</span>
               <span className="text-[10px] font-semibold opacity-40 group-hover:opacity-100 group-hover:text-slate-200 transition-all duration-500">
-                Creative Eye Multimedia
+                Creative Eye Studios
               </span>
               <span className="text-sm opacity-30 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">👁️</span>
             </a>

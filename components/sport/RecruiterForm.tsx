@@ -109,10 +109,10 @@ export default function RecruiterForm() {
           <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${content.colors.gradient}`} />
 
           {/* Desktop: Landscape Layout */}
-          <div className="grid md:grid-cols-[380px,1fr] gap-0">
+          <div className="grid grid-cols-1 md:grid-cols-[380px,1fr] gap-0">
             
             {/* Left: Header Column */}
-            <div className="relative p-8 md:p-10 bg-black/40 flex flex-col justify-center border-r border-white/10 overflow-hidden">
+            <div className="relative p-8 md:p-10 bg-black/40 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/10 overflow-hidden">
               <div 
                 className="absolute inset-0 bg-cover bg-center opacity-30"
                 style={{
