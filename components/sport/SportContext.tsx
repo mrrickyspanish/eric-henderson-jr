@@ -15,7 +15,7 @@ const SportContext = createContext<SportContextType | undefined>(undefined);
 export function SportProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [currentSport, setCurrentSport] = useState<Sport>('football');
+  const [currentSport, setCurrentSport] = useState<Sport>('basketball');
 
   useEffect(() => {
     const sportParam = searchParams.get('sport');

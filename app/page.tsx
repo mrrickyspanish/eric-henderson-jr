@@ -8,6 +8,7 @@ import SeasonStats from "@/components/sport/SeasonStats";
 import CoachTestimonial from "@/components/sport/CoachTestimonial";
 import RecruiterForm from "@/components/sport/RecruiterForm";
 import InTheNews from "@/components/sport/InTheNews";
+import SocialMedia from "@/components/sport/SocialMedia";
 import ScheduleSection from "@/components/sport/ScheduleSection";
 import ShareBar from "@/components/sport/ShareBar";
 import Footer from "@/components/Footer";
@@ -24,6 +25,7 @@ export default function HomePage() {
         <CoachTestimonial />
         <ScheduleSection />
         <InTheNews />
+        <SocialMedia />
         <RecruiterForm />
       </div>
       <ShareBar />

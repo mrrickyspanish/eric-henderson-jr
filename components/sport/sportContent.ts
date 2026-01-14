@@ -182,7 +182,7 @@ export const sportContent: Record<Sport, SportContent> = {
       },
       {
         text: "Explosive athlete who adapts to any scheme. Coaches will love his versatility.",
-        author: "Recruiting Coordinator (placeholder)",
+        author: "Recruiting Coordinator",
       },
     ],
     schedule: [
@@ -293,7 +293,7 @@ export const sportContent: Record<Sport, SportContent> = {
       },
       {
         text: "Scheme-versatile player who elevates teammates instantly.",
-        author: "College Scout (placeholder)",
+        author: "College Scout",
       },
     ],
     schedule: [

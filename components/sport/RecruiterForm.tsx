@@ -15,6 +15,10 @@ export default function RecruiterForm() {
   const [error, setError] = useState<string | null>(null);
 
   const subject = `Interest in LaMarin Powell – ${content.position} – Class of 2028`;
+  
+  const backgroundImage = currentSport === 'football' 
+    ? '/LP_football_7.png' 
+    : '/lamarin_powell_basketball_3.jpg';
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -108,7 +112,15 @@ export default function RecruiterForm() {
           <div className="grid md:grid-cols-[380px,1fr] gap-0">
             
             {/* Left: Header Column */}
-            <div className="p-8 md:p-10 bg-black/40 flex flex-col justify-center border-r border-white/10">
+            <div className="relative p-8 md:p-10 bg-black/40 flex flex-col justify-center border-r border-white/10 overflow-hidden">
+              <div 
+                className="absolute inset-0 bg-cover bg-center opacity-30"
+                style={{
+                  backgroundImage: `url('${backgroundImage}')`,
+                }}
+              />
+              <div className="absolute inset-0 bg-black/60" />
+              <div className="relative z-10">
               <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">
                 Recruiting Inquiry
               </h2>
@@ -120,6 +132,7 @@ export default function RecruiterForm() {
                 <div className="h-px flex-1 bg-white"></div>
                 <span className="text-[9px] uppercase tracking-widest text-white whitespace-nowrap">Official Contact</span>
                 <div className="h-px flex-1 bg-white"></div>
+              </div>
               </div>
             </div>
 
