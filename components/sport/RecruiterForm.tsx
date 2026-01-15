@@ -50,7 +50,11 @@ export default function RecruiterForm() {
       }
 
       setState("success");
-      (e.currentTarget as HTMLFormElement).reset();
+      
+      const form = e.currentTarget;
+      if (form) {
+        form.reset();
+      }
 
       confetti({
         particleCount: 120,

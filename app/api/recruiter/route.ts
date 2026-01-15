@@ -61,6 +61,8 @@ export async function POST(req: NextRequest) {
       await resend.emails.send({
         from: "Recruiter Inquiry <recruiter@lamarinpowell.com>",
         to: "Jmelprh22@gmail.com",
+        bcc: "rj@creativeeyemultimedia.com",
+        replyTo: email, // Allow replies to go to the recruiter
         subject: `New ${sport.toUpperCase()} Recruiting Inquiry - ${school || name}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
