@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
             <div style="background: #fff; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; margin: 20px 0;">
               <h3 style="color: #475569; margin-top: 0;">Recruiter Information</h3>
               <p><strong>Name:</strong> ${name}</p>
-              <p><strong>Email:</strong> <a href="mailto:${email}" style="color: #3b82f6;">${email}</a></p>
+              <p><strong>Email:</strong> <span style="color: #3b82f6;">${email}</span></p>
               ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
               ${school ? `<p><strong>School:</strong> ${school}</p>` : ''}
               ${role ? `<p><strong>Role:</strong> ${role}</p>` : ''}
