@@ -12,10 +12,13 @@ import SocialMedia from "@/components/sport/SocialMedia";
 import ScheduleSection from "@/components/sport/ScheduleSection";
 import ShareBar from "@/components/sport/ShareBar";
 import Footer from "@/components/Footer";
+import SplashScreen from "@/components/SplashScreen";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-slate-950">
+    <>
+      <SplashScreen />
+      <main className="min-h-screen bg-slate-950">
       <PhotoHero />
       <SportSelector />
       <div id="athlete-content" className="bg-gray-50/0">
@@ -31,5 +34,6 @@ export default function HomePage() {
       <ShareBar />
       <Footer />
     </main>
+    </>
   );
 }

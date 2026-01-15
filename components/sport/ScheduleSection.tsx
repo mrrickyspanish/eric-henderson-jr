@@ -12,6 +12,15 @@ export default function ScheduleSection() {
   const [startIndex, setStartIndex] = useState(0);
   const [filter, setFilter] = useState<'All' | 'Conference' | 'Non-Conference'>('All');
 
+  // Filter to only show upcoming games from today forward
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset to start of day for accurate comparison
+
+  const upcomingGames = schedule.filter(game => {
+    const gameDate = new Date(game.date);
+    return gameDate >= today;
+  });
+
   // Reset pagination when sport changes
   useEffect(() => {
     setSelectedGameIndex(0);
@@ -20,12 +29,12 @@ export default function ScheduleSection() {
   }, [currentSport]);
 
   // Only show basketball schedule
-  if (currentSport !== 'basketball' || !schedule || schedule.length === 0) return null;
+  if (currentSport !== 'basketball' || !upcomingGames || upcomingGames.length === 0) return null;
 
   // Apply filter
   const filteredSchedule = filter === 'All' 
-    ? schedule 
-    : schedule.filter(game => game.type === filter);
+    ? upcomingGames 
+    : upcomingGames.filter(game => game.type === filter);
 
   const itemsPerPage = 4;
   const totalGames = filteredSchedule.length;
@@ -33,7 +42,7 @@ export default function ScheduleSection() {
   const hasMore = startIndex + itemsPerPage < totalGames;
   const hasPrevious = startIndex > 0;
 
-  const selectedGame = schedule[selectedGameIndex];
+  const selectedGame = upcomingGames[selectedGameIndex];
   const accent = sportContent[currentSport].colors.accent;
   
   // Determine if game is home or away based on opponent format
