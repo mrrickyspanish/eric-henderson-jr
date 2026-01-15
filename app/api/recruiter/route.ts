@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
     // Send email notification to family
     try {
       await resend.emails.send({
-        from: "Recruiter Inquiry <noreply@lamarinpowell.com>",
+        from: "Recruiter Inquiry <recruiter@lamarinpowell.com>",
         to: "Jmelprh22@gmail.com",
         subject: `New ${sport.toUpperCase()} Recruiting Inquiry - ${school || name}`,
         html: `
