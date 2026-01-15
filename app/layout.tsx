@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   description:
     "Class of 2028 dual-sport athlete LaMarin Powell — verified film, stats, schedule, and recruiting contact for college coaches.",
   metadataBase: new URL(SITE_URL),
+  icons: {
+    icon: "/lamarin_powell_logo_main_black.png",
+  },
   alternates: {
     canonical: SITE_URL,
   },
