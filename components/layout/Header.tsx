@@ -1,15 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSport } from '@/components/sport/SportContext';
 
 type ShareState = 'closed' | 'open';
+type StatsState = 'closed' | 'open';
 
 export default function Header() {
   const { currentSport, setSport } = useSport();
   const [shareState, setShareState] = useState<ShareState>('closed');
+  const [statsState, setStatsState] = useState<StatsState>('closed');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Track scroll position for navbar shrinking
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const isFootball = currentSport === 'football';
   const accentColor = isFootball ? '#fbbf24' : '#22d3ee';
@@ -17,8 +29,16 @@ export default function Header() {
   const jerseyNumber = 'LP21';
 
   const measurables = isFootball
-    ? ['4.42s 40-YD', '38" VERT', '3.2 GPA']
-    : ['4.2 PPG', '1.8 APG', '3.2 GPA'];
+    ? [
+        { label: '40-Yard Dash', value: '4.42s' },
+        { label: 'Vertical Jump', value: '38"' },
+        { label: 'GPA', value: '3.2' }
+      ]
+    : [
+        { label: 'Points Per Game', value: '4.2' },
+        { label: 'Assists Per Game', value: '1.8' },
+        { label: 'GPA', value: '3.2' }
+      ];
 
   const copyLink = (sport: 'football' | 'basketball') => {
     const origin =
@@ -32,11 +52,19 @@ export default function Header() {
     }
 
     setShareState('closed');
+    setStatsState('closed');
     setMobileMenuOpen(false);
   };
 
   const handleNavClick = () => {
+    setStatsState('closed');
     setMobileMenuOpen(false);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setStatsState('closed');
+    setShareState('closed');
   };
 
   const handleSportChange = (sport: 'football' | 'basketball') => {
@@ -54,20 +82,105 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40">
+    <header className="fixed inset-x-0 top-0 z-40 transition-all duration-300">
       {/* Top strip – Desktop only */}
-      <div className="hidden md:block bg-black text-[11px] uppercase tracking-[0.2em] text-white/60">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2">
-          <span>Coach Tools</span>
+      <div className={`hidden md:block bg-black text-[11px] uppercase tracking-[0.2em] text-white/60 transition-all duration-300 ${isScrolled ? 'py-1.5' : 'py-2.5'}`}>
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
+          {/* LEFT – Logo pill and class */}
+          <div className="flex items-center gap-3 md:gap-4">
+            <motion.button
+              type="button"
+              onClick={scrollToTop}
+              initial={{ boxShadow: `0 0 0 0 ${accentColor}00`, opacity: 0.9 }}
+              animate={{
+                boxShadow: [
+                  `0 0 0 0 ${accentColor}00`,
+                  `0 0 26px 4px ${accentColor}55`,
+                  `0 0 0 0 ${accentColor}00`,
+                ],
+                opacity: 1,
+              }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.75, ease: 'easeOut' }}
+              className="relative flex items-center gap-2 h-8 md:h-9 pl-1.5 pr-3 md:pr-4 rounded-full border border-white/25 bg-zinc-900 text-white overflow-hidden hover:border-white/40 transition-colors cursor-pointer z-10"
+              aria-label="Scroll to top"
+            >
+              <div className="h-5 w-5 md:h-6 md:w-6 flex-shrink-0 p-0.5">
+                <img 
+                  src="/lamarin_powell_logo_main_transparent.png" 
+                  alt="LP Logo" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <span className="text-[8px] md:text-[9px] font-black tracking-tight whitespace-nowrap">
+                LAMARIN POWELL
+              </span>
+            </motion.button>
+            <span className="text-[10px] text-white/60">
+              Class of 2028
+            </span>
+          </div>
 
-          <nav className="flex items-center gap-6">
-            <a href="#athlete-content" className="hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded px-2 py-1">
-              Stats
-            </a>
-            <a href="#schedule" className="hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded px-2 py-1">
+          {/* RIGHT – Navigation */}
+          <nav className="flex items-center gap-7">
+            <span className="text-[11px] font-semibold text-white/50">Coach Tools</span>
+            {/* Stats dropdown */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() =>
+                  setStatsState((prev) => (prev === 'open' ? 'closed' : 'open'))
+                }
+                className="text-[11px] font-semibold hover:text-white hover:scale-105 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded px-3 py-2 min-h-[44px] flex items-center gap-1"
+              >
+                Stats 
+                <motion.span
+                  animate={{ rotate: statsState === 'open' ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="inline-block"
+                >
+                  ▾
+                </motion.span>
+              </button>
+
+              {statsState === 'open' && (
+                <div className="absolute left-0 mt-2 w-72 rounded-2xl border border-white/10 bg-black/90 py-2 text-[12px] shadow-xl z-50">
+                  <div className="px-4 pb-2 text-[10px] uppercase tracking-[0.2em] text-white/40">
+                    {currentSport === 'football' ? 'Football' : 'Basketball'} Measurables
+                  </div>
+                  <div className="px-4 py-3 space-y-2">
+                    {measurables.map((stat) => (
+                      <div key={stat.label} className="flex items-center justify-between py-1">
+                        <span className="text-white/60 text-xs">{stat.label}</span>
+                        <span className={`text-base font-bold ${isFootball ? 'text-amber-400' : 'text-cyan-400'}`}>
+                          {stat.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <a 
+              href="#schedule" 
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('schedule')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="text-[11px] font-semibold hover:text-white hover:scale-105 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded px-3 py-2 min-h-[44px] flex items-center"
+            >
               Schedule
             </a>
-            <a href="#contact" className="hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded px-2 py-1">
+            <a 
+              href="#contact" 
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="text-[11px] font-semibold hover:text-white hover:scale-105 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded px-3 py-2 min-h-[44px] flex items-center"
+            >
               Contact
             </a>
 
@@ -78,7 +191,7 @@ export default function Header() {
                 onClick={() =>
                   setShareState((prev) => (prev === 'open' ? 'closed' : 'open'))
                 }
-                className="inline-flex items-center rounded-full border border-white/30 px-4 py-1.5 text-[11px] font-semibold tracking-[0.16em] hover:border-white hover:text-white"
+                className="inline-flex items-center rounded-full border border-white/30 px-4 py-1.5 text-[11px] font-semibold tracking-[0.16em] hover:border-white hover:text-white transition-all duration-200"
               >
                 SHARE ▾
               </button>
@@ -104,44 +217,19 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Main nav – logo / sport toggle / measurables */}
+      {/* Main nav – sport toggle */}
       <div className="border-b border-white/10 bg-black/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6 py-3">
-          {/* LEFT – Jersey badge with shimmer */}
-          <div className="flex items-center gap-2 md:gap-3">
-            <motion.div
-              key={currentSport}
-              initial={{ boxShadow: `0 0 0 0 ${accentColor}00`, opacity: 0.9 }}
-              animate={{
-                boxShadow: [
-                  `0 0 0 0 ${accentColor}00`,
-                  `0 0 26px 4px ${accentColor}55`,
-                  `0 0 0 0 ${accentColor}00`,
-                ],
-                opacity: 1,
-              }}
-              transition={{ duration: 0.75, ease: 'easeOut' }}
-              className="relative flex h-9 w-10 md:h-10 md:w-12 items-center justify-center rounded-full border border-white/25 bg-zinc-900 text-white"
-            >
-              <span className="text-[9px] md:text-[10px] font-black italic tracking-tight">
-                {jerseyNumber}
-              </span>
-            </motion.div>
-            <span className="hidden sm:block text-xs text-white/70">
-              Class of 2028
-            </span>
-          </div>
-
           {/* CENTER – sport toggle */}
-          <div className="flex items-center justify-center gap-4 md:gap-8 text-xs md:text-sm font-medium">
+          <div className="flex items-center justify-center gap-6 md:gap-10 text-xs md:text-sm font-semibold">
             <button
               type="button"
               onClick={() => handleSportChange('football')}
               className={[
-                'pb-1 transition-colors w-16 md:w-20 text-center',
+                'pb-1.5 px-2 transition-all duration-200 w-20 md:w-24 text-center min-h-[44px] flex items-center justify-center',
                 isFootball
                   ? 'border-b-2 border-amber-400 text-amber-300'
-                  : 'border-b-2 border-transparent text-white/60 hover:text-white',
+                  : 'border-b-2 border-transparent text-white/60 hover:text-white hover:scale-105',
               ].join(' ')}
             >
               Football
@@ -151,17 +239,17 @@ export default function Header() {
               type="button"
               onClick={() => handleSportChange('basketball')}
               className={[
-                'pb-1 transition-colors w-16 md:w-20 text-center',
+                'pb-1.5 px-2 transition-all duration-200 w-20 md:w-24 text-center min-h-[44px] flex items-center justify-center',
                 !isFootball
                   ? 'border-b-2 border-cyan-300 text-cyan-200'
-                  : 'border-b-2 border-transparent text-white/60 hover:text-white',
+                  : 'border-b-2 border-transparent text-white/60 hover:text-white hover:scale-105',
               ].join(' ')}
             >
               Basketball
             </button>
           </div>
 
-          {/* RIGHT – Mobile menu button / Desktop measurables */}
+          {/* RIGHT – Mobile menu button */}
           <div className="flex items-center">
             {/* Mobile hamburger menu */}
             <button
@@ -174,13 +262,6 @@ export default function Header() {
               <span className={`block h-0.5 w-6 bg-white/80 transition-opacity ${mobileMenuOpen ? 'opacity-0' : ''}`} />
               <span className={`block h-0.5 w-6 bg-white/80 transition-transform ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
             </button>
-
-            {/* Desktop measurables */}
-            <div className="hidden md:flex items-center gap-3 rounded-full bg-white/10 px-4 py-2 text-[11px] font-semibold text-white/80 shadow-sm">
-              {measurables.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
-            </div>
           </div>
         </div>
       </div>
@@ -195,33 +276,34 @@ export default function Header() {
             className="md:hidden bg-black/95 backdrop-blur-xl border-b border-white/10 overflow-hidden"
           >
             <nav className="px-6 py-4 space-y-4">
-              {/* Measurables on mobile */}
-              <div className="flex flex-wrap gap-2 pb-3 border-b border-white/10">
-                {measurables.map((item) => (
-                  <span key={item} className="bg-white/10 px-3 py-1.5 rounded-full text-[10px] font-semibold text-white/80">
-                    {item}
-                  </span>
-                ))}
+              {/* Stats section */}
+              <div>
+                <div className="text-sm font-semibold text-white/70 py-2 uppercase tracking-wider mb-2">
+                  Stats
+                </div>
+                <div className="pl-4 space-y-2 pb-3 border-b border-white/10">
+                  {measurables.map((stat) => (
+                    <div key={stat.label} className="flex items-center justify-between py-1">
+                      <span className="text-xs text-white/60">{stat.label}</span>
+                      <span className={`text-base font-bold ${isFootball ? 'text-amber-400' : 'text-cyan-400'}`}>
+                        {stat.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <a 
-                href="#athlete-content" 
-                onClick={handleNavClick}
-                className="block text-sm text-white/70 hover:text-white py-2 uppercase tracking-wider"
-              >
-                Stats
-              </a>
-              <a 
                 href="#schedule" 
                 onClick={handleNavClick}
-                className="block text-sm text-white/70 hover:text-white py-2 uppercase tracking-wider"
+                className="block text-sm font-semibold text-white/70 hover:text-white py-2 uppercase tracking-wider transition-colors duration-200"
               >
                 Schedule
               </a>
               <a 
                 href="#contact" 
                 onClick={handleNavClick}
-                className="block text-sm text-white/70 hover:text-white py-2 uppercase tracking-wider"
+                className="block text-sm font-semibold text-white/70 hover:text-white py-2 uppercase tracking-wider transition-colors duration-200"
               >
                 Contact
               </a>
