@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/react";
+import { SportProvider } from "@/components/sport/SportContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${geistSans.variable} ${geistDisplay.variable} ${geistMono.variable} bg-midnight text-ivory antialiased`}
       >
-        {children}
+                  <SportProvider>{children}</SportProvider>
         <Analytics />
       </body>
     </html>
