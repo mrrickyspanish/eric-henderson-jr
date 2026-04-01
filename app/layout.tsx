@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -31,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${geistSans.variable} ${geistDisplay.variable} ${geistMono.variable} bg-midnight text-ivory antialiased`}
       >
-                  <SportProvider>{children}</SportProvider>
+                            <Suspense><SportProvider>{children}</SportProvider></Suspense>
         <Analytics />
       </body>
     </html>
