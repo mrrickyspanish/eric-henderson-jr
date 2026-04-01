@@ -9,23 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
-      fontFamily: {
-        'neue-haas': ['neue-haas-grotesk-display', 'sans-serif'],
-      },
-      animation: {
-        scroll: 'scroll 40s linear infinite',
-      },
-      keyframes: {
-        scroll: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
-        },
+        midnight: "#080C10",
+        ivory: "#EEE8DC",
+        "chicago-red": "#CE1141",
+        gold: "#C9A84C",
       },
     },
   },
   plugins: [],
 };
+
 export default config;
