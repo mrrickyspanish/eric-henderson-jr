@@ -3,41 +3,60 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --midnight: #080c10;
+  --ivory: #eee8dc;
+  --chicago-red: #ce1141;
+  --gold: #c9a84c;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
-  padding: 0;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-barlow-condensed), sans-serif;
+  }
+
+  p,
+  a,
+  label,
+  span,
+  input,
+  textarea,
+  button {
+    font-family: var(--font-dm-sans), sans-serif;
+  }
+}
+
+@layer components {
+  .field-label {
+    @apply mb-1 block font-dm text-xs uppercase tracking-[0.18em] text-ivory/70;
+  }
+
+  .field {
+    @apply w-full rounded border border-white/20 bg-white/5 px-3 py-2 text-sm text-ivory outline-none transition focus:border-chicago-red focus:ring-1 focus:ring-chicago-red;
+  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  /* Glassmorphic utilities */
-  .glass {
-    @apply backdrop-blur-lg bg-white/10 border border-white/20;
-  }
-  
-  .glass-hover {
-    @apply hover:bg-white/15 transition-all duration-300;
+  .grain-overlay {
+    background-image: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.06), transparent 30%),
+      radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.04), transparent 35%);
+    mix-blend-mode: soft-light;
   }
 
-  /* Pause animation on hover */
-  .hover\:pause-scroll:hover {
-    animation-play-state: paused;
+  .font-barlow {
+    font-family: var(--font-barlow-condensed), sans-serif;
+  }
+
+  .font-dm {
+    font-family: var(--font-dm-sans), sans-serif;
+  }
+
+  .font-geist {
+    font-family: var(--font-geist-mono), monospace;
   }
 }
